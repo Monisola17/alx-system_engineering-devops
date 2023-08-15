@@ -23,22 +23,3 @@ echo "Hello World!" | sudo tee /var/www/html/index.html > /dev/null
 # Restart Nginx
 sudo service nginx restart
 
-# Check response status code and content
-response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost/)
-if [ "$response" -eq 200 ]; then
-    echo "Server is responding with status code 200."
-else
-    echo "Error: Server response status code is not 200."
-    exit 1
-fi
-
-content=$(curl -s http://localhost/)
-if [[ "$content" == *"Hello World!"* ]]; then
-    echo "Server returns 'Hello World!' content."
-else
-    echo "Error: Server does not return 'Hello World!' content."
-    exit 1
-fi
-
-echo "Script completed successfully."
-
