@@ -1,30 +1,44 @@
 #!/usr/bin/env bash
 # Installs Nginx with the following configurations:
-#    Listens on port 80.
-#    Returns a page containing "Hello World!" when queried
-#    at the root with a curl GET request.
+#+    Listens on port 80.
+#+    Returns a page containing "Hello World!" when queried
+#++    at the root with a curl GET request.
 
-# Update package repositories
 sudo apt-get update
-
-# Install Nginx
 sudo apt-get install -y nginx
 
-# Create directory and index.html file
-sudo mkdir -p /var/www/html
-sudo touch /var/www/html/index.html
-echo "Hello World!" | sudo tee /var/www/html/index.html >/dev/null
-
-# Configure Nginx default site
-sudo bash -c 'cat > /etc/nginx/sites-available/default << EOF
-server {
-    listen      80 default_server;
-    listen      [::]:80 default_server;
-    root        /var/www/html;
-    index       index.html index.htm;
+# Update the default Nginx server block configuration
+echo "server {
+     listen      80 default_server;
+     listen      [::]:80 default_server;
+     root        /var/www/html;
+     index       index.html index.htm;
 }
-EOF'
+" | sudo tee /etc/nginx/sites-available/default > /dev/null
 
-# Restart Nginx service
+# Create the directory and index.html file
+sudo mkdir -p /var/www/html
+echo "Hello World!" | sudo tee /var/www/html/index.html > /dev/null
+
+# Restart Nginx
 sudo service nginx restart
+
+# Check response status code and content
+response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost/)
+if [ "$response" -eq 200 ]; then
+    echo "Server is responding with status code 200."
+else
+    echo "Error: Server response status code is not 200."
+    exit 1
+fi
+
+content=$(curl -s http://localhost/)
+if [[ "$content" == *"Hello World!"* ]]; then
+    echo "Server returns 'Hello World!' content."
+else
+    echo "Error: Server does not return 'Hello World!' content."
+    exit 1
+fi
+
+echo "Script completed successfully."
 
