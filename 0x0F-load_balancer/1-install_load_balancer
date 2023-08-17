@@ -17,7 +17,7 @@ frontend  moni_frontend
         bind *:80
         mode http
         default_backend moni_backend
-backend besthor_backend
+backend moni_backend
         balance roundrobin
         server 77449-web-01 54.87.215.132:80 check
         server 77449-web-02 100.25.179.79:80 check
