@@ -1,30 +1,28 @@
 # Postmortem: When the Database Took a Coffee Break ☕
 > By Keshiro Monisola
 
-![](https://t3.ftcdn.net/jpg/04/92/09/72/240_F_492097246_yagE8x9Uk8M9IekPy7GBuE0x1Uoa7esD.jpg)
-
-
 
 ## Issue Summary
-![](https://www.cienotes.com/wp-content/uploads/2019/07/summaryblackboard.jpg)
 
 Duration: August 25, 2023, 14:00 - August 25, 2023, 16:30 (WAT)
 Impact: Web application experienced intermittent slowdowns and increased latency. Approximately 25% of users were affected during the peak of the incident. Users wondered if our servers were on a coffee break.
 
 
-## Timeline (all time in GMT + 3)
-![](https://www.ncbar.org/wp-content/uploads/2022/02/Timeline-Visual-300x145.png)
+## Timeline (all time in GMT + 1)
 
-| Time (GMT + 3) | Actions |
+| Time (GMT + 1) | Actions |
 | -------------- | -------- |
-| 10:45 AM | Upgrades implementation begins |
-| 11:00AM | Server Outage begins |
-| 11:00AM | Pagers alerted on-call team |
-| 11:10AM | On-call team acknowledgement |
-| 11:15AM | Rollback initiation begins |
-| 11:20AM | Successful rollback|
-| 11:20AM | Server restart initiated|
-| 11:25AM | 100% of traffic back online |
+| 14:00  | The issue was initially detected when the monitoring system triggered an alert for elevated response times. |
+| 14:05 | The engineering team began investigating the issue, suspecting a potential database performance problem. |
+| 14:15 | Preliminary investigation revealed a high number of open database connections and slow query execution times. |
+| 14:30 | The assumption was made that a sudden increase in traffic might be causing the database overload. |
+| 14:45 |  Attempts were made to scale the database resources, but no significant improvement was observed. |
+| 15:00 | The incident was escalated to the database administration team for further analysis. |
+| 15:15 | Deep dive analysis revealed that the connection pool size was set to a lower value than required for the current traffic load.|
+| 15:30 | Adjusted connection pool size settings to match traffic demands and restarted the application servers. |
+| 15:45 | Response times started to improve as the adjusted connection pool size alleviated the database load. |
+| 16:00 | The incident was declared resolved, with response times returning to normal levels. |
+| 16:30 | Post-incident analysis and corrective measures discussion took place. |
 
 ## Root cause
 ![](https://blog.systemsengineering.com/hs-fs/hubfs/blog-files/Root%20Cause.jpg?width=600&name=Root%20Cause.jpg)
