@@ -1,7 +1,8 @@
 # Postmortem: When the Database Took a Coffee Break ☕
 > By Keshiro Monisola
 
-![funny](https://github.com/Monisola17/alx-system_engineering-devops/assets/106781966/b4bdabcb-f7a9-4a23-879e-b68aa02213d6
+
+![image](https://github.com/Monisola17/alx-system_engineering-devops/assets/106781966/52e8571b-f49e-46fc-a2ec-8aae65b0376c)
 
 
 ## Issue Summary
@@ -32,7 +33,6 @@ Impact: Web application experienced intermittent slowdowns and increased latency
 The root cause of the issue was a misconfigured database connection pool size. The connection pool was set to a lower value than required to handle the incoming traffic. As a result, the pool became exhausted, leading to slow query execution times and increased latency for users.
 
 ## Preventive measures
-![](https://cdn-ccchn.nitrocdn.com/eoxXytShChgscESECFYcqdYPaOaOGMwn/assets/images/optimized/rev-fbc0c0e/wp-content/uploads/2021/06/prevent-incidents.png)
 
 - Configuration Review: Conduct a thorough review of all system configurations to identify and address any misconfigured settings.
 - Monitoring Enhancement: Implement proactive monitoring on database connection pool metrics to detect pool exhaustion and prevent similar incidents in the future.
