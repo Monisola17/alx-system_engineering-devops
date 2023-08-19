@@ -1,6 +1,6 @@
 # System engineering & Devops
 
-Module of **System engineering** and **Devops**, carried out during **Full Stack Software Engineering studies** at **[Holberton School](https://www.holbertonschool.com/)**.
+Module of **System engineering** and **Devops**, carried out during **Full Stack Software Engineering studies** at **[ALX School]**.
 
 ## Technologies
 * Scripts written in Bash 4.3.11(1)
